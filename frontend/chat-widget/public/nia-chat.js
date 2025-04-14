@@ -204,20 +204,35 @@
       this.messages = [];
       this.isOpen = false;
       this.isLoading = false;
+      this.welcomeShown = false;
     }
 
     connectedCallback() {
       this.render();
       this.setupEventListeners();
+      this.showWelcomeBubble();
+    }
+
+    showWelcomeBubble() {
+      if (!this.welcomeShown) {
+        const welcomeBubble = this.querySelector('#nia-welcome-bubble');
+        if (welcomeBubble) {
+          welcomeBubble.style.display = 'block';
+          this.welcomeShown = true;
+          setTimeout(() => {
+            welcomeBubble.style.display = 'none';
+          }, 5000);
+        }
+      }
     }
 
     render() {
       this.innerHTML = `
         <div id="nia-widget-container">
           <button id="nia-floating-icon"></button>
-          <div id="nia-welcome-bubble">¡Hola! ¿En qué puedo ayudarte?</div>
+          <div id="nia-welcome-bubble" style="display: none;">¡Hola! ¿En qué puedo ayudarte?</div>
           ${this.isOpen ? `
-            <div id="nia-chat-box">
+            <div id="nia-chat-box" style="display: flex;">
               <div id="nia-chat-header">
                 <img src="https://aezva.com/wp-content/uploads/2025/04/web-200x200-1.webp" alt="NIA">
                 <span>NIA Asistente</span>
@@ -254,18 +269,24 @@
       const minimize = this.querySelector('#nia-minimize-button');
       const welcomeBubble = this.querySelector('#nia-welcome-bubble');
 
-      icon.addEventListener('click', () => {
-        this.isOpen = !this.isOpen;
-        welcomeBubble.style.display = 'none';
-        this.render();
-        this.setupEventListeners();
-      });
+      if (icon) {
+        icon.addEventListener('click', () => {
+          this.isOpen = !this.isOpen;
+          if (welcomeBubble) {
+            welcomeBubble.style.display = 'none';
+          }
+          this.render();
+          this.setupEventListeners();
+        });
+      }
 
-      minimize.addEventListener('click', () => {
-        this.isOpen = false;
-        this.render();
-        this.setupEventListeners();
-      });
+      if (minimize) {
+        minimize.addEventListener('click', () => {
+          this.isOpen = false;
+          this.render();
+          this.setupEventListeners();
+        });
+      }
 
       const sendMessage = async () => {
         const text = input.value.trim();
@@ -301,10 +322,15 @@
         }
       };
 
-      button.addEventListener('click', sendMessage);
-      input.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') sendMessage();
-      });
+      if (button) {
+        button.addEventListener('click', sendMessage);
+      }
+
+      if (input) {
+        input.addEventListener('keypress', (e) => {
+          if (e.key === 'Enter') sendMessage();
+        });
+      }
     }
   }
 
