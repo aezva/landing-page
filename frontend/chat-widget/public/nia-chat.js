@@ -1,14 +1,14 @@
 (function() {
   // Crear el elemento contenedor si no existe
-  if (!document.getElementById('nia-chat-widget')) {
+  if (!document.getElementById('nia-widget-container')) {
     const container = document.createElement('div');
-    container.id = 'nia-chat-widget';
+    container.id = 'nia-widget-container';
     document.body.appendChild(container);
   }
 
   // Estilos del widget
   const styles = `
-    #nia-chat-widget {
+    #nia-widget-container {
       position: fixed !important;
       bottom: 20px !important;
       right: 20px !important;
@@ -213,19 +213,22 @@
 
     render() {
       this.innerHTML = `
-        <div class="nia-chat-widget">
-          <button class="nia-chat-toggle">💬</button>
+        <div id="nia-widget-container">
+          <button id="nia-floating-icon"></button>
+          <div id="nia-welcome-bubble">¡Hola! ¿En qué puedo ayudarte?</div>
           ${this.isOpen ? `
-            <div class="nia-chat-container">
-              <div class="nia-chat-header">
-                <h3>NIA Asistente</h3>
+            <div id="nia-chat-box">
+              <div id="nia-chat-header">
+                <img src="https://aezva.com/wp-content/uploads/2025/04/web-200x200-1.webp" alt="NIA">
+                <span>NIA Asistente</span>
+                <button id="nia-minimize-button">_</button>
               </div>
-              <div class="nia-chat-messages">
+              <div id="nia-chat-messages">
                 ${this.messages.map(msg => `
-                  <div class="nia-message ${msg.role}">${msg.content}</div>
+                  <div class="${msg.role === 'user' ? 'user-message' : 'nia-message'}">${msg.content}</div>
                 `).join('')}
                 ${this.isLoading ? `
-                  <div class="nia-message assistant">
+                  <div class="nia-message">
                     <div class="nia-typing-indicator">
                       <span></span>
                       <span></span>
@@ -234,9 +237,9 @@
                   </div>
                 ` : ''}
               </div>
-              <div class="nia-chat-input">
-                <input type="text" placeholder="Escribe tu mensaje...">
-                <button>Enviar</button>
+              <div id="nia-chat-input-area">
+                <input type="text" id="nia-chat-input" placeholder="Escribe tu mensaje...">
+                <button id="nia-send-button">Enviar</button>
               </div>
             </div>
           ` : ''}
@@ -245,12 +248,21 @@
     }
 
     setupEventListeners() {
-      const toggle = this.querySelector('.nia-chat-toggle');
-      const input = this.querySelector('input');
-      const button = this.querySelector('button');
+      const icon = this.querySelector('#nia-floating-icon');
+      const input = this.querySelector('#nia-chat-input');
+      const button = this.querySelector('#nia-send-button');
+      const minimize = this.querySelector('#nia-minimize-button');
+      const welcomeBubble = this.querySelector('#nia-welcome-bubble');
 
-      toggle.addEventListener('click', () => {
+      icon.addEventListener('click', () => {
         this.isOpen = !this.isOpen;
+        welcomeBubble.style.display = 'none';
+        this.render();
+        this.setupEventListeners();
+      });
+
+      minimize.addEventListener('click', () => {
+        this.isOpen = false;
         this.render();
         this.setupEventListeners();
       });
@@ -301,5 +313,5 @@
 
   // Crear y agregar el widget
   const widget = document.createElement('nia-chat');
-  document.getElementById('nia-chat-widget').appendChild(widget);
+  document.getElementById('nia-widget-container').appendChild(widget);
 })(); 
