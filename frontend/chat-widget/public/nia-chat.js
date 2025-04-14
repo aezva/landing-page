@@ -324,14 +324,24 @@
             body: JSON.stringify({ role: 'user', content: text }),
           });
 
-          const data = await response.json();
-          if (response.ok) {
-            this.messages.push({ role: 'assistant', content: data.response });
-          } else {
-            throw new Error(data.detail || 'Error al procesar el mensaje');
+          if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.detail || `Error del servidor: ${response.status}`);
           }
+
+          const data = await response.json();
+          this.messages.push({ role: 'assistant', content: data.response });
         } catch (error) {
-          this.messages.push({ role: 'system', content: `Error: ${error.message}` });
+          console.error('Error al enviar mensaje:', error);
+          let errorMessage = 'Lo siento, ha ocurrido un error al procesar tu mensaje. ';
+          
+          if (error.message.includes('Failed to fetch')) {
+            errorMessage += 'No se pudo conectar con el servidor. Por favor, verifica tu conexión a internet o intenta más tarde.';
+          } else {
+            errorMessage += error.message;
+          }
+          
+          this.messages.push({ role: 'system', content: errorMessage });
         } finally {
           this.isLoading = false;
           this.render();
