@@ -204,6 +204,7 @@
       this.messages = [];
       this.isOpen = false;
       this.isLoading = false;
+      this.welcomeMessageShown = false;
     }
 
     connectedCallback() {
@@ -232,6 +233,10 @@
       this.isOpen = !this.isOpen;
       if (this.isOpen) {
         this.hideWelcomeBubble();
+        if (!this.welcomeMessageShown && this.messages.length === 0) {
+          this.messages.push({ role: 'assistant', content: '¡Hola! ¿En qué puedo ayudarte?' });
+          this.welcomeMessageShown = true;
+        }
       } else if (this.messages.length === 0) {
         this.showWelcomeBubble();
       }
