@@ -1,4 +1,36 @@
 (function() {
+  // Configuración por defecto
+  const defaultConfig = {
+    clientId: null,
+    apiUrl: 'https://nia-backend-production.up.railway.app/api/v1',
+    widgetPosition: 'bottom-right',
+    primaryColor: '#4F46E5',
+    welcomeMessage: '¡Hola! ¿En qué puedo ayudarte?',
+    widgetIcon: 'https://aezva.com/wp-content/uploads/2025/04/web-200x200-1.webp'
+  };
+
+  // Cargar configuración del cliente
+  function loadConfig() {
+    const script = document.currentScript;
+    const config = {
+      ...defaultConfig,
+      ...(script ? JSON.parse(script.getAttribute('data-config') || '{}') : {})
+    };
+
+    if (!config.clientId) {
+      console.error('NIA Widget: Se requiere un clientId para inicializar el widget');
+      return null;
+    }
+
+    return config;
+  }
+
+  // Verificar si el widget ya está cargado
+  if (window.NIAWidget) {
+    console.warn('NIA Widget: El widget ya está cargado en esta página');
+    return;
+  }
+
   // Crear el elemento contenedor si no existe
   if (!document.getElementById('nia-widget-container')) {
     const container = document.createElement('div');
@@ -201,16 +233,49 @@
   class ChatWidget extends HTMLElement {
     constructor() {
       super();
+      this.config = loadConfig();
+      if (!this.config) return;
+
       this.messages = [];
       this.isOpen = false;
       this.isLoading = false;
       this.welcomeMessageShown = false;
+      this.sessionId = this.generateSessionId();
+    }
+
+    generateSessionId() {
+      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        const r = Math.random() * 16 | 0;
+        const v = c === 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+      });
     }
 
     connectedCallback() {
+      if (!this.config) return;
       this.render();
       this.setupEventListeners();
       this.showWelcomeBubble();
+      this.initializeSession();
+    }
+
+    async initializeSession() {
+      try {
+        const response = await fetch(`${this.config.apiUrl}/session`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Client-ID': this.config.clientId
+          },
+          body: JSON.stringify({ sessionId: this.sessionId })
+        });
+
+        if (!response.ok) {
+          throw new Error('Error al inicializar la sesión');
+        }
+      } catch (error) {
+        console.error('NIA Widget: Error al inicializar la sesión:', error);
+      }
     }
 
     showWelcomeBubble() {
@@ -234,7 +299,7 @@
       if (this.isOpen) {
         this.hideWelcomeBubble();
         if (!this.welcomeMessageShown && this.messages.length === 0) {
-          this.messages.push({ role: 'assistant', content: '¡Hola! ¿En qué puedo ayudarte?' });
+          this.messages.push({ role: 'assistant', content: this.config.welcomeMessage });
           this.welcomeMessageShown = true;
         }
       } else if (this.messages.length === 0) {
@@ -245,14 +310,16 @@
     }
 
     render() {
+      if (!this.config) return;
+
       this.innerHTML = `
-        <div id="nia-widget-container">
-          <button id="nia-floating-icon"></button>
-          <div id="nia-welcome-bubble" style="display: none;">¡Hola! ¿En qué puedo ayudarte?</div>
+        <div id="nia-widget-container" class="nia-widget-${this.config.widgetPosition}">
+          <button id="nia-floating-icon" style="background-color: ${this.config.primaryColor}"></button>
+          <div id="nia-welcome-bubble" style="display: none;">${this.config.welcomeMessage}</div>
           ${this.isOpen ? `
             <div id="nia-chat-box" style="display: flex;">
-              <div id="nia-chat-header">
-                <img src="https://aezva.com/wp-content/uploads/2025/04/web-200x200-1.webp" alt="NIA">
+              <div id="nia-chat-header" style="background-color: ${this.config.primaryColor}">
+                <img src="${this.config.widgetIcon}" alt="NIA">
                 <span>NIA Asistente</span>
                 <button id="nia-minimize-button">_</button>
               </div>
@@ -272,7 +339,7 @@
               </div>
               <div id="nia-chat-input-area">
                 <input type="text" id="nia-chat-input" placeholder="Escribe tu mensaje...">
-                <button id="nia-send-button">Enviar</button>
+                <button id="nia-send-button" style="background-color: ${this.config.primaryColor}">Enviar</button>
               </div>
             </div>
           ` : ''}
@@ -281,6 +348,8 @@
     }
 
     setupEventListeners() {
+      if (!this.config) return;
+
       const icon = this.querySelector('#nia-floating-icon');
       const input = this.querySelector('#nia-chat-input');
       const button = this.querySelector('#nia-send-button');
@@ -316,38 +385,29 @@
         this.setupEventListeners();
 
         try {
-          console.log('Intentando conectar con el servidor...');
-          const response = await fetch('https://nia-backend-production.up.railway.app/api/v1/chat', {
+          const response = await fetch(`${this.config.apiUrl}/chat`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
-              'Accept': 'application/json',
-              'Access-Control-Allow-Origin': '*',
-              'Access-Control-Allow-Methods': 'POST, OPTIONS',
-              'Access-Control-Allow-Headers': 'Content-Type'
+              'X-Client-ID': this.config.clientId,
+              'X-Session-ID': this.sessionId
             },
-            mode: 'cors',
-            credentials: 'omit',
             body: JSON.stringify({ role: 'user', content: text }),
           });
 
-          console.log('Respuesta del servidor:', response);
-
           if (!response.ok) {
             const errorData = await response.json();
-            console.error('Error del servidor:', errorData);
             throw new Error(errorData.detail || `Error del servidor: ${response.status}`);
           }
 
           const data = await response.json();
-          console.log('Datos recibidos:', data);
           this.messages.push({ role: 'assistant', content: data.response });
         } catch (error) {
-          console.error('Error completo:', error);
+          console.error('NIA Widget: Error al enviar mensaje:', error);
           let errorMessage = 'Lo siento, ha ocurrido un error al procesar tu mensaje. ';
           
           if (error.message.includes('Failed to fetch')) {
-            errorMessage += 'No se pudo conectar con el servidor. Por favor, verifica que el backend esté en funcionamiento.';
+            errorMessage += 'No se pudo conectar con el servidor. Por favor, intenta más tarde.';
           } else {
             errorMessage += error.message;
           }
@@ -378,4 +438,14 @@
   // Crear y agregar el widget
   const widget = document.createElement('nia-chat');
   document.getElementById('nia-widget-container').appendChild(widget);
+
+  // Exponer la API del widget
+  window.NIAWidget = {
+    init: (config) => {
+      const script = document.currentScript;
+      if (script) {
+        script.setAttribute('data-config', JSON.stringify(config));
+      }
+    }
+  };
 })(); 
