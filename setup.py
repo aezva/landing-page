@@ -22,4 +22,5 @@ setup(
         "requests==2.31.0",
         "aiohttp==3.9.1"
     ],
+    python_requires=">=3.10",
 ) 
