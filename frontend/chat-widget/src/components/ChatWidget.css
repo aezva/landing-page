@@ -9,7 +9,7 @@
   width: 60px;
   height: 60px;
   border-radius: 50%;
-  background-color: #007bff;
+  background-color: #4F46E5;
   color: white;
   border: none;
   cursor: pointer;
@@ -22,7 +22,7 @@
 }
 
 .chat-toggle:hover {
-  background-color: #0056b3;
+  background-color: #6366F1;
   transform: scale(1.1);
 }
 
@@ -32,7 +32,7 @@
   right: 0;
   width: 350px;
   height: 500px;
-  background-color: white;
+  background-color: #FFFFFF;
   border-radius: 10px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
   display: flex;
@@ -42,7 +42,7 @@
 
 .chat-header {
   padding: 15px;
-  background-color: #007bff;
+  background-color: #4F46E5;
   color: white;
   text-align: center;
 }
@@ -54,6 +54,7 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+  background-color: #F9FAFB;
 }
 
 .message {
@@ -65,47 +66,50 @@
 
 .message.user {
   align-self: flex-end;
-  background-color: #007bff;
+  background-color: #4F46E5;
   color: white;
   border-bottom-right-radius: 5px;
 }
 
 .message.assistant {
   align-self: flex-start;
-  background-color: #f1f1f1;
-  color: #333;
+  background-color: #F3F4F6;
+  color: #1F2937;
   border-bottom-left-radius: 5px;
 }
 
 .message.system {
   align-self: center;
-  background-color: #ff6b6b;
+  background-color: #FF6B6B;
   color: white;
   font-size: 0.9em;
 }
 
 .chat-input {
   padding: 15px;
-  border-top: 1px solid #eee;
+  border-top: 1px solid #E5E7EB;
   display: flex;
   gap: 10px;
+  background-color: #FFFFFF;
 }
 
 .chat-input input {
   flex: 1;
   padding: 10px;
-  border: 1px solid #ddd;
+  border: 1px solid #E5E7EB;
   border-radius: 5px;
   outline: none;
+  background-color: #F9FAFB;
+  color: #1F2937;
 }
 
 .chat-input input:focus {
-  border-color: #007bff;
+  border-color: #4F46E5;
 }
 
 .chat-input button {
   padding: 10px 15px;
-  background-color: #007bff;
+  background-color: #4F46E5;
   color: white;
   border: none;
   border-radius: 5px;
@@ -114,11 +118,11 @@
 }
 
 .chat-input button:hover {
-  background-color: #0056b3;
+  background-color: #6366F1;
 }
 
 .chat-input button:disabled {
-  background-color: #ccc;
+  background-color: #9CA3AF;
   cursor: not-allowed;
 }
 
@@ -131,7 +135,7 @@
 .typing-indicator span {
   width: 8px;
   height: 8px;
-  background-color: #999;
+  background-color: #9CA3AF;
   border-radius: 50%;
   animation: typing 1s infinite ease-in-out;
 }
