@@ -64,6 +64,12 @@
       text-align: center !important;
     }
 
+    .nia-chat-header h3 {
+      margin: 0 !important;
+      font-size: 1.2em !important;
+      font-weight: 600 !important;
+    }
+
     .nia-chat-messages {
       flex: 1 !important;
       padding: 15px !important;
@@ -79,6 +85,9 @@
       padding: 10px 15px !important;
       border-radius: 15px !important;
       word-wrap: break-word !important;
+      font-family: system-ui, -apple-system, sans-serif !important;
+      font-size: 14px !important;
+      line-height: 1.4 !important;
     }
 
     .nia-message.user {
@@ -118,6 +127,8 @@
       outline: none !important;
       background-color: #F9FAFB !important;
       color: #1F2937 !important;
+      font-family: system-ui, -apple-system, sans-serif !important;
+      font-size: 14px !important;
     }
 
     .nia-chat-input input:focus {
@@ -132,6 +143,9 @@
       border-radius: 5px !important;
       cursor: pointer !important;
       transition: background-color 0.3s ease !important;
+      font-family: system-ui, -apple-system, sans-serif !important;
+      font-size: 14px !important;
+      font-weight: 500 !important;
     }
 
     .nia-chat-input button:hover {
@@ -176,9 +190,12 @@
   `;
 
   // Agregar estilos al documento
-  const styleSheet = document.createElement('style');
-  styleSheet.textContent = styles;
-  document.head.appendChild(styleSheet);
+  if (!document.getElementById('nia-chat-styles')) {
+    const styleSheet = document.createElement('style');
+    styleSheet.id = 'nia-chat-styles';
+    styleSheet.textContent = styles;
+    document.head.appendChild(styleSheet);
+  }
 
   // Componente del widget
   class ChatWidget extends HTMLElement {
