@@ -1,0 +1,73 @@
+{
+  "common": {
+    "welcome": "Bienvenido a NIA Platform",
+    "loading": "Cargando...",
+    "error": "Ha ocurrido un error",
+    "success": "Operación completada con éxito",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "create": "Crear"
+  },
+  "auth": {
+    "login": "Iniciar Sesión",
+    "register": "Registrarse",
+    "email": "Correo Electrónico",
+    "password": "Contraseña",
+    "forgotPassword": "¿Olvidaste tu contraseña?",
+    "noAccount": "¿No tienes una cuenta?",
+    "haveAccount": "¿Ya tienes una cuenta?",
+    "fullName": "Nombre Completo",
+    "companyName": "Nombre de la Empresa",
+    "phoneNumber": "Número de Teléfono"
+  },
+  "dashboard": {
+    "title": "Panel de Control",
+    "overview": "Resumen",
+    "nia": "NIA",
+    "integrations": "Integraciones",
+    "settings": "Configuración",
+    "profile": "Perfil",
+    "logout": "Cerrar Sesión",
+    "welcome": "Bienvenido al Dashboard",
+    "newChat": "Nuevo Chat",
+    "activeChats": "Chats Activos",
+    "noActiveChats": "No hay chats activos",
+    "totalUsers": "Total de Usuarios",
+    "you": "Tú",
+    "configure": "Configurar",
+    "recentActivity": "Actividad Reciente",
+    "noRecentActivity": "No hay actividad reciente"
+  },
+  "nia": {
+    "title": "Tu NIA",
+    "create": "Crear NIA",
+    "edit": "Editar NIA",
+    "delete": "Eliminar NIA",
+    "name": "Nombre",
+    "description": "Descripción",
+    "personality": "Personalidad",
+    "knowledge": "Base de Conocimiento",
+    "training": "Entrenamiento",
+    "status": "Estado"
+  },
+  "integrations": {
+    "title": "Integraciones",
+    "add": "Agregar Integración",
+    "edit": "Editar Integración",
+    "delete": "Eliminar Integración",
+    "type": "Tipo",
+    "status": "Estado",
+    "connected": "Conectado",
+    "disconnected": "Desconectado"
+  },
+  "settings": {
+    "title": "Configuración",
+    "language": "Idioma",
+    "theme": "Tema",
+    "notifications": "Notificaciones",
+    "timezone": "Zona Horaria",
+    "save": "Guardar Cambios"
+  }
+} 
