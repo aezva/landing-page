@@ -6,7 +6,6 @@
     widgetPosition: 'bottom-right',
     primaryColor: '#4F46E5',
     welcomeMessage: '¡Hola! ¿En qué puedo ayudarte?',
-    widgetIcon: 'https://aezva.com/wp-content/uploads/2025/04/web-200x200-1.webp'
   };
 
   // Cargar configuración del cliente
@@ -319,8 +318,10 @@
           ${this.isOpen ? `
             <div id="nia-chat-box" style="display: flex;">
               <div id="nia-chat-header" style="background-color: ${this.config.primaryColor}">
-                <img src="${this.config.widgetIcon}" alt="NIA">
-                <span>NIA Asistente</span>
+                <div class="nia-header-content">
+                  <img src="https://aezva.com/wp-content/uploads/2025/04/web-200x200-1.webp" alt="NIA">
+                  <span>NIA</span>
+                </div>
                 <button id="nia-minimize-button">_</button>
               </div>
               <div id="nia-chat-messages">
