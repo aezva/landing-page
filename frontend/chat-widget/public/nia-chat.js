@@ -55,16 +55,22 @@
       color: white !important;
       border: none !important;
       cursor: pointer !important;
-      font-size: 24px !important;
       display: flex !important;
       align-items: center !important;
       justify-content: center !important;
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2) !important;
       transition: all 0.3s ease !important;
+      padding: 0 !important;
+      overflow: hidden !important;
+    }
+
+    #nia-floating-icon img {
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover !important;
     }
 
     #nia-floating-icon:hover {
-      background-color: #6366F1 !important;
       transform: scale(1.1) !important;
     }
 
@@ -300,7 +306,9 @@
 
       this.innerHTML = `
         <div id="nia-widget-container" class="nia-widget-${this.config.widgetPosition}">
-          <button id="nia-floating-icon" style="background-color: ${this.config.primaryColor}">N</button>
+          <button id="nia-floating-icon" style="background-color: ${this.config.primaryColor}">
+            <img src="https://aezva.com/wp-content/uploads/2025/04/web-200x200-1.webp" alt="NIA">
+          </button>
           <div id="nia-welcome-bubble" style="display: none;">${this.config.welcomeMessage}</div>
           ${this.isOpen ? `
             <div id="nia-chat-box" style="display: flex;">
