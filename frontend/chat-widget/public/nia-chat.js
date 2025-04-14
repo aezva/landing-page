@@ -204,7 +204,6 @@
       this.messages = [];
       this.isOpen = false;
       this.isLoading = false;
-      this.welcomeShown = false;
     }
 
     connectedCallback() {
@@ -218,7 +217,6 @@
         const welcomeBubble = this.querySelector('#nia-welcome-bubble');
         if (welcomeBubble) {
           welcomeBubble.style.display = 'block';
-          this.welcomeShown = true;
         }
       }
     }
@@ -227,21 +225,14 @@
       const welcomeBubble = this.querySelector('#nia-welcome-bubble');
       if (welcomeBubble) {
         welcomeBubble.style.display = 'none';
-        this.welcomeShown = false;
       }
     }
 
-    openChat() {
-      this.isOpen = true;
-      this.hideWelcomeBubble();
-      this.render();
-      this.setupEventListeners();
-    }
-
-    closeChat() {
-      this.isOpen = false;
-      if (this.messages.length === 0) {
-        this.welcomeShown = false;
+    toggleChat() {
+      this.isOpen = !this.isOpen;
+      if (this.isOpen) {
+        this.hideWelcomeBubble();
+      } else if (this.messages.length === 0) {
         this.showWelcomeBubble();
       }
       this.render();
@@ -293,19 +284,19 @@
 
       if (icon) {
         icon.addEventListener('click', () => {
-          this.openChat();
+          this.toggleChat();
         });
       }
 
       if (welcomeBubble) {
         welcomeBubble.addEventListener('click', () => {
-          this.openChat();
+          this.toggleChat();
         });
       }
 
       if (minimize) {
         minimize.addEventListener('click', () => {
-          this.closeChat();
+          this.toggleChat();
         });
       }
 
