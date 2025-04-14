@@ -11,20 +11,20 @@ class ChatService:
 
     async def process_message(self, message: ChatMessage) -> ChatResponse:
         try:
-            print(f"Procesando mensaje: {message.content}")  # Debug
-            print(f"API Key: {os.getenv('OPENAI_API_KEY')[:5]}...")  # Debug (solo primeros 5 caracteres)
+            print(f"Procesando mensaje: {message.content}")
+            print(f"API Key: {os.getenv('OPENAI_API_KEY')[:5]}...")
             
-            response = await self.client.chat.completions.create(
+            response = self.client.chat.completions.create(
                 model="gpt-3.5-turbo",
                 messages=[{"role": message.role, "content": message.content}]
             )
             
-            print(f"Respuesta recibida: {response}")  # Debug
+            print(f"Respuesta recibida: {response}")
             
             return ChatResponse(
                 response=response.choices[0].message.content,
                 sources=[]
             )
         except Exception as e:
-            print(f"Error detallado: {str(e)}")  # Debug
+            print(f"Error detallado: {str(e)}")
             raise Exception(f"Error procesando el mensaje: {str(e)}") 
