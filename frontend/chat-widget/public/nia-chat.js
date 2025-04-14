@@ -205,6 +205,7 @@
       this.isOpen = false;
       this.isLoading = false;
       this.welcomeShown = false;
+      this.hasInteracted = false;
     }
 
     connectedCallback() {
@@ -214,16 +215,36 @@
     }
 
     showWelcomeBubble() {
-      if (!this.welcomeShown) {
+      if (!this.welcomeShown && !this.hasInteracted) {
         const welcomeBubble = this.querySelector('#nia-welcome-bubble');
         if (welcomeBubble) {
           welcomeBubble.style.display = 'block';
           this.welcomeShown = true;
-          setTimeout(() => {
-            welcomeBubble.style.display = 'none';
-          }, 5000);
         }
       }
+    }
+
+    hideWelcomeBubble() {
+      const welcomeBubble = this.querySelector('#nia-welcome-bubble');
+      if (welcomeBubble) {
+        welcomeBubble.style.display = 'none';
+      }
+    }
+
+    openChat() {
+      this.isOpen = true;
+      this.hideWelcomeBubble();
+      this.render();
+      this.setupEventListeners();
+    }
+
+    closeChat() {
+      this.isOpen = false;
+      if (!this.hasInteracted) {
+        this.showWelcomeBubble();
+      }
+      this.render();
+      this.setupEventListeners();
     }
 
     render() {
@@ -271,20 +292,19 @@
 
       if (icon) {
         icon.addEventListener('click', () => {
-          this.isOpen = !this.isOpen;
-          if (welcomeBubble) {
-            welcomeBubble.style.display = 'none';
-          }
-          this.render();
-          this.setupEventListeners();
+          this.openChat();
+        });
+      }
+
+      if (welcomeBubble) {
+        welcomeBubble.addEventListener('click', () => {
+          this.openChat();
         });
       }
 
       if (minimize) {
         minimize.addEventListener('click', () => {
-          this.isOpen = false;
-          this.render();
-          this.setupEventListeners();
+          this.closeChat();
         });
       }
 
@@ -292,6 +312,7 @@
         const text = input.value.trim();
         if (!text) return;
 
+        this.hasInteracted = true;
         this.messages.push({ role: 'user', content: text });
         input.value = '';
         this.isLoading = true;
