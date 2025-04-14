@@ -215,7 +215,7 @@
     }
 
     showWelcomeBubble() {
-      if (!this.welcomeShown && !this.hasInteracted) {
+      if (!this.welcomeShown && this.messages.length === 0) {
         const welcomeBubble = this.querySelector('#nia-welcome-bubble');
         if (welcomeBubble) {
           welcomeBubble.style.display = 'block';
@@ -240,7 +240,7 @@
 
     closeChat() {
       this.isOpen = false;
-      if (!this.hasInteracted) {
+      if (this.messages.length === 0) {
         this.showWelcomeBubble();
       }
       this.render();
