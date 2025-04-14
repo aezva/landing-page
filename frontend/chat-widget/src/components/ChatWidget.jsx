@@ -29,6 +29,7 @@ const ChatWidget = () => {
     setIsLoading(true);
 
     try {
+      console.log('Enviando mensaje a:', process.env.REACT_APP_API_URL);
       const response = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/chat`, {
         method: 'POST',
         headers: {
@@ -38,6 +39,7 @@ const ChatWidget = () => {
       });
 
       const data = await response.json();
+      console.log('Respuesta recibida:', data);
       
       if (response.ok) {
         setMessages(prev => [...prev, {
@@ -48,9 +50,10 @@ const ChatWidget = () => {
         throw new Error(data.detail || 'Error al procesar el mensaje');
       }
     } catch (error) {
+      console.error('Error detallado:', error);
       setMessages(prev => [...prev, {
         role: 'system',
-        content: 'Lo siento, ha ocurrido un error. Por favor, intenta de nuevo.'
+        content: `Error: ${error.message}`
       }]);
     } finally {
       setIsLoading(false);
