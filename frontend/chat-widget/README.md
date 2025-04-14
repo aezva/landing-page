@@ -1,40 +1,50 @@
-# NIA Chat Widget
+# Widget de Chat NIA
 
-Widget de chat para integrar NIA en cualquier sitio web.
+Este es el widget de chat para NIA, un asistente virtual que puede integrarse en cualquier sitio web.
 
 ## Instalación
 
-1. Clona este repositorio
-2. Instala las dependencias:
+Para integrar el widget en tu sitio web, agrega el siguiente código en la sección `<head>` de tu HTML:
+
+```html
+<link rel="stylesheet" href="https://nia-alvaros-projects-6b18c4d2.vercel.app/nia-style.css">
+```
+
+Y al final del `<body>`:
+
+```html
+<script src="https://nia-alvaros-projects-6b18c4d2.vercel.app/nia-chat.js"></script>
+```
+
+## Desarrollo Local
+
+1. Instala las dependencias:
 ```bash
 npm install
 ```
 
-3. Crea un archivo `.env` con la siguiente configuración:
-```
-REACT_APP_API_URL=https://tu-api-nia.com
+2. Inicia el servidor de desarrollo:
+```bash
+npm start
 ```
 
-4. Construye el widget:
+3. Abre http://localhost:3000 en tu navegador
+
+## Construcción
+
+Para construir los archivos para producción:
+
 ```bash
 npm run build
 ```
 
-## Integración
+## Despliegue
 
-Para integrar el widget en tu sitio web, agrega el siguiente script:
+El widget está configurado para desplegarse automáticamente en Vercel cuando se hace push a la rama principal.
 
-```html
-<script src="https://tu-dominio-vercel.com/widget.js"></script>
-```
+## Personalización
 
-## Desarrollo
-
-Para ejecutar el widget en modo desarrollo:
-
-```bash
-npm start
-```
+Puedes personalizar los colores y estilos modificando el archivo `public/nia-style.css`.
 
 ## Características
 
