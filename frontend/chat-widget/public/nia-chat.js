@@ -8,162 +8,169 @@
 
   // Estilos del widget
   const styles = `
-    .chat-widget {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      z-index: 1000;
+    #nia-chat-widget {
+      position: fixed !important;
+      bottom: 20px !important;
+      right: 20px !important;
+      z-index: 999999 !important;
     }
 
-    .chat-toggle {
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      background-color: #4F46E5;
-      color: white;
-      border: none;
-      cursor: pointer;
-      font-size: 24px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-      transition: all 0.3s ease;
+    .nia-chat-widget {
+      position: fixed !important;
+      bottom: 20px !important;
+      right: 20px !important;
+      z-index: 999999 !important;
     }
 
-    .chat-toggle:hover {
-      background-color: #6366F1;
-      transform: scale(1.1);
+    .nia-chat-toggle {
+      width: 60px !important;
+      height: 60px !important;
+      border-radius: 50% !important;
+      background-color: #4F46E5 !important;
+      color: white !important;
+      border: none !important;
+      cursor: pointer !important;
+      font-size: 24px !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2) !important;
+      transition: all 0.3s ease !important;
     }
 
-    .chat-container {
-      position: absolute;
-      bottom: 70px;
-      right: 0;
-      width: 350px;
-      height: 500px;
-      background-color: #FFFFFF;
-      border-radius: 10px;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
+    .nia-chat-toggle:hover {
+      background-color: #6366F1 !important;
+      transform: scale(1.1) !important;
     }
 
-    .chat-header {
-      padding: 15px;
-      background-color: #4F46E5;
-      color: white;
-      text-align: center;
+    .nia-chat-container {
+      position: absolute !important;
+      bottom: 70px !important;
+      right: 0 !important;
+      width: 350px !important;
+      height: 500px !important;
+      background-color: #FFFFFF !important;
+      border-radius: 10px !important;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2) !important;
+      display: flex !important;
+      flex-direction: column !important;
+      overflow: hidden !important;
     }
 
-    .chat-messages {
-      flex: 1;
-      padding: 15px;
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      background-color: #F9FAFB;
+    .nia-chat-header {
+      padding: 15px !important;
+      background-color: #4F46E5 !important;
+      color: white !important;
+      text-align: center !important;
     }
 
-    .message {
-      max-width: 80%;
-      padding: 10px 15px;
-      border-radius: 15px;
-      word-wrap: break-word;
+    .nia-chat-messages {
+      flex: 1 !important;
+      padding: 15px !important;
+      overflow-y: auto !important;
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 10px !important;
+      background-color: #F9FAFB !important;
     }
 
-    .message.user {
-      align-self: flex-end;
-      background-color: #4F46E5;
-      color: white;
-      border-bottom-right-radius: 5px;
+    .nia-message {
+      max-width: 80% !important;
+      padding: 10px 15px !important;
+      border-radius: 15px !important;
+      word-wrap: break-word !important;
     }
 
-    .message.assistant {
-      align-self: flex-start;
-      background-color: #F3F4F6;
-      color: #1F2937;
-      border-bottom-left-radius: 5px;
+    .nia-message.user {
+      align-self: flex-end !important;
+      background-color: #4F46E5 !important;
+      color: white !important;
+      border-bottom-right-radius: 5px !important;
     }
 
-    .message.system {
-      align-self: center;
-      background-color: #FF6B6B;
-      color: white;
-      font-size: 0.9em;
+    .nia-message.assistant {
+      align-self: flex-start !important;
+      background-color: #F3F4F6 !important;
+      color: #1F2937 !important;
+      border-bottom-left-radius: 5px !important;
     }
 
-    .chat-input {
-      padding: 15px;
-      border-top: 1px solid #E5E7EB;
-      display: flex;
-      gap: 10px;
-      background-color: #FFFFFF;
+    .nia-message.system {
+      align-self: center !important;
+      background-color: #FF6B6B !important;
+      color: white !important;
+      font-size: 0.9em !important;
     }
 
-    .chat-input input {
-      flex: 1;
-      padding: 10px;
-      border: 1px solid #E5E7EB;
-      border-radius: 5px;
-      outline: none;
-      background-color: #F9FAFB;
-      color: #1F2937;
+    .nia-chat-input {
+      padding: 15px !important;
+      border-top: 1px solid #E5E7EB !important;
+      display: flex !important;
+      gap: 10px !important;
+      background-color: #FFFFFF !important;
     }
 
-    .chat-input input:focus {
-      border-color: #4F46E5;
+    .nia-chat-input input {
+      flex: 1 !important;
+      padding: 10px !important;
+      border: 1px solid #E5E7EB !important;
+      border-radius: 5px !important;
+      outline: none !important;
+      background-color: #F9FAFB !important;
+      color: #1F2937 !important;
     }
 
-    .chat-input button {
-      padding: 10px 15px;
-      background-color: #4F46E5;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
+    .nia-chat-input input:focus {
+      border-color: #4F46E5 !important;
     }
 
-    .chat-input button:hover {
-      background-color: #6366F1;
+    .nia-chat-input button {
+      padding: 10px 15px !important;
+      background-color: #4F46E5 !important;
+      color: white !important;
+      border: none !important;
+      border-radius: 5px !important;
+      cursor: pointer !important;
+      transition: background-color 0.3s ease !important;
     }
 
-    .chat-input button:disabled {
-      background-color: #9CA3AF;
-      cursor: not-allowed;
+    .nia-chat-input button:hover {
+      background-color: #6366F1 !important;
     }
 
-    .typing-indicator {
-      display: flex;
-      gap: 5px;
-      padding: 10px;
+    .nia-chat-input button:disabled {
+      background-color: #9CA3AF !important;
+      cursor: not-allowed !important;
     }
 
-    .typing-indicator span {
-      width: 8px;
-      height: 8px;
-      background-color: #9CA3AF;
-      border-radius: 50%;
-      animation: typing 1s infinite ease-in-out;
+    .nia-typing-indicator {
+      display: flex !important;
+      gap: 5px !important;
+      padding: 10px !important;
     }
 
-    .typing-indicator span:nth-child(2) {
-      animation-delay: 0.2s;
+    .nia-typing-indicator span {
+      width: 8px !important;
+      height: 8px !important;
+      background-color: #9CA3AF !important;
+      border-radius: 50% !important;
+      animation: typing 1s infinite ease-in-out !important;
     }
 
-    .typing-indicator span:nth-child(3) {
-      animation-delay: 0.4s;
+    .nia-typing-indicator span:nth-child(2) {
+      animation-delay: 0.2s !important;
+    }
+
+    .nia-typing-indicator span:nth-child(3) {
+      animation-delay: 0.4s !important;
     }
 
     @keyframes typing {
       0%, 100% {
-        transform: translateY(0);
+        transform: translateY(0) !important;
       }
       50% {
-        transform: translateY(-5px);
+        transform: translateY(-5px) !important;
       }
     }
   `;
@@ -177,7 +184,6 @@
   class ChatWidget extends HTMLElement {
     constructor() {
       super();
-      this.attachShadow({ mode: 'open' });
       this.messages = [];
       this.isOpen = false;
       this.isLoading = false;
@@ -189,21 +195,21 @@
     }
 
     render() {
-      this.shadowRoot.innerHTML = `
-        <div class="chat-widget">
-          <button class="chat-toggle">💬</button>
+      this.innerHTML = `
+        <div class="nia-chat-widget">
+          <button class="nia-chat-toggle">💬</button>
           ${this.isOpen ? `
-            <div class="chat-container">
-              <div class="chat-header">
+            <div class="nia-chat-container">
+              <div class="nia-chat-header">
                 <h3>NIA Asistente</h3>
               </div>
-              <div class="chat-messages">
+              <div class="nia-chat-messages">
                 ${this.messages.map(msg => `
-                  <div class="message ${msg.role}">${msg.content}</div>
+                  <div class="nia-message ${msg.role}">${msg.content}</div>
                 `).join('')}
                 ${this.isLoading ? `
-                  <div class="message assistant">
-                    <div class="typing-indicator">
+                  <div class="nia-message assistant">
+                    <div class="nia-typing-indicator">
                       <span></span>
                       <span></span>
                       <span></span>
@@ -211,7 +217,7 @@
                   </div>
                 ` : ''}
               </div>
-              <div class="chat-input">
+              <div class="nia-chat-input">
                 <input type="text" placeholder="Escribe tu mensaje...">
                 <button>Enviar</button>
               </div>
@@ -222,9 +228,9 @@
     }
 
     setupEventListeners() {
-      const toggle = this.shadowRoot.querySelector('.chat-toggle');
-      const input = this.shadowRoot.querySelector('input');
-      const button = this.shadowRoot.querySelector('button');
+      const toggle = this.querySelector('.nia-chat-toggle');
+      const input = this.querySelector('input');
+      const button = this.querySelector('button');
 
       toggle.addEventListener('click', () => {
         this.isOpen = !this.isOpen;
