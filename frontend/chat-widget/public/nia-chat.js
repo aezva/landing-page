@@ -316,6 +316,7 @@
         this.setupEventListeners();
 
         try {
+          console.log('Intentando conectar con el servidor...');
           const response = await fetch('https://nia-backend-production.up.railway.app/api/v1/chat', {
             method: 'POST',
             headers: {
@@ -324,19 +325,23 @@
             body: JSON.stringify({ role: 'user', content: text }),
           });
 
+          console.log('Respuesta del servidor:', response);
+
           if (!response.ok) {
             const errorData = await response.json();
+            console.error('Error del servidor:', errorData);
             throw new Error(errorData.detail || `Error del servidor: ${response.status}`);
           }
 
           const data = await response.json();
+          console.log('Datos recibidos:', data);
           this.messages.push({ role: 'assistant', content: data.response });
         } catch (error) {
-          console.error('Error al enviar mensaje:', error);
+          console.error('Error completo:', error);
           let errorMessage = 'Lo siento, ha ocurrido un error al procesar tu mensaje. ';
           
           if (error.message.includes('Failed to fetch')) {
-            errorMessage += 'No se pudo conectar con el servidor. Por favor, verifica tu conexión a internet o intenta más tarde.';
+            errorMessage += 'No se pudo conectar con el servidor. Por favor, verifica que el backend esté en funcionamiento.';
           } else {
             errorMessage += error.message;
           }
