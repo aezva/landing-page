@@ -1,61 +1,72 @@
-# NIA - Asistente de IA para Negocios
+# NIA - Asistente Virtual Inteligente
 
-NIA es un asistente de IA avanzado diseñado para ayudar a negocios en tareas de ventas y atención al cliente.
+NIA es un asistente virtual avanzado diseñado para automatizar tareas en negocios digitales.
 
 ## Estructura del Proyecto
 
 ```
 NIA/
-├── backend/              # Backend del proyecto
-│   ├── api/             # API principal
-│   ├── ai_engine/       # Motor de IA
-│   ├── models/          # Modelos de datos
+├── backend/              # Backend de la aplicación
+│   ├── api/             # Endpoints de la API
 │   ├── services/        # Servicios de negocio
+│   ├── models/          # Modelos de datos
+│   ├── ai_engine/       # Motor de IA
 │   └── utils/           # Utilidades
-├── frontend/            # Frontend del proyecto
-│   ├── client-panel/    # Panel de cliente
-│   ├── admin-panel/     # Panel de administración
-│   └── chat-widget/     # Widget de chat
+│
+├── frontend/            # Frontend de la aplicación
+│   ├── chat-widget/     # Widget de chat para sitios web
+│   ├── client-panel/    # Panel de control para clientes
+│   └── admin-panel/     # Panel de administración
+│
 ├── docs/                # Documentación
-└── tests/               # Tests
+└── tests/               # Pruebas
 ```
 
-## Requisitos
+## Componentes
 
-- Python 3.10+
-- Node.js (para el frontend)
-- OpenAI API Key
+### Backend
+- API RESTful para comunicación con el frontend
+- Motor de IA para procesamiento de lenguaje natural
+- Servicios de negocio para automatización de tareas
+- Integración con OpenAI y otras APIs
 
-## Configuración
+### Frontend
+- **Widget de Chat**: Componente embebible en cualquier sitio web
+- **Panel de Cliente**: Interfaz para gestionar conversaciones y configuraciones
+- **Panel de Admin**: Herramientas de administración y análisis
 
-1. Clonar el repositorio:
-```bash
-git clone https://github.com/tu-usuario/nia.git
-cd nia
-```
+## Instalación
 
-2. Configurar el backend:
+### Backend
 ```bash
 cd backend
-python -m venv venv
-source venv/bin/activate  # En Windows: venv\Scripts\activate
 pip install -r requirements.txt
+python main.py
 ```
 
-3. Configurar variables de entorno:
-Crear un archivo `.env` en la raíz del backend con:
-```
-OPENAI_API_KEY=tu_api_key
-```
-
-4. Ejecutar el servidor:
+### Frontend
 ```bash
-uvicorn backend.api.main:app --reload
+cd frontend/chat-widget
+npm install
+npm start
 ```
 
 ## Despliegue
 
-El proyecto está configurado para desplegarse automáticamente en Railway cuando se hace push a la rama main.
+- Backend: Desplegado en Railway
+- Frontend: Desplegado en Vercel
+
+## Integración del Widget
+
+Para integrar el widget de chat en tu sitio web:
+
+```html
+<!-- En el <head> -->
+<link rel="stylesheet" href="https://nia-alvaros-projects-6b18c4d2.vercel.app/nia-style.css">
+
+<!-- Al final del <body> -->
+<script src="https://nia-alvaros-projects-6b18c4d2.vercel.app/nia-chat.js"></script>
+```
 
 ## Licencia
 
