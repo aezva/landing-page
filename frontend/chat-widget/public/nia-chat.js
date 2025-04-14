@@ -38,7 +38,8 @@
   }
 
   // Estilos del widget
-  const styles = `
+  const styleSheet = document.createElement('style');
+  styleSheet.textContent = `
     #nia-widget-container {
       position: fixed !important;
       bottom: 20px !important;
@@ -46,14 +47,7 @@
       z-index: 999999 !important;
     }
 
-    .nia-chat-widget {
-      position: fixed !important;
-      bottom: 20px !important;
-      right: 20px !important;
-      z-index: 999999 !important;
-    }
-
-    .nia-chat-toggle {
+    #nia-floating-icon {
       width: 60px !important;
       height: 60px !important;
       border-radius: 50% !important;
@@ -69,12 +63,12 @@
       transition: all 0.3s ease !important;
     }
 
-    .nia-chat-toggle:hover {
+    #nia-floating-icon:hover {
       background-color: #6366F1 !important;
       transform: scale(1.1) !important;
     }
 
-    .nia-chat-container {
+    #nia-chat-box {
       position: absolute !important;
       bottom: 70px !important;
       right: 0 !important;
@@ -88,110 +82,114 @@
       overflow: hidden !important;
     }
 
-    .nia-chat-header {
+    #nia-chat-header {
       padding: 15px !important;
       background-color: #4F46E5 !important;
       color: white !important;
-      text-align: center !important;
+      display: flex !important;
+      justify-content: space-between !important;
+      align-items: center !important;
     }
 
-    .nia-chat-header h3 {
-      margin: 0 !important;
+    .nia-header-content {
+      display: flex !important;
+      align-items: center !important;
+      gap: 10px !important;
+    }
+
+    .nia-header-content img {
+      width: 30px !important;
+      height: 30px !important;
+      border-radius: 50% !important;
+    }
+
+    .nia-header-content span {
       font-size: 1.2em !important;
-      font-weight: 600 !important;
+      font-weight: bold !important;
     }
 
-    .nia-chat-messages {
+    #nia-minimize-button {
+      background: none !important;
+      border: none !important;
+      color: white !important;
+      font-size: 1.5em !important;
+      cursor: pointer !important;
+    }
+
+    #nia-chat-messages {
       flex: 1 !important;
       padding: 15px !important;
       overflow-y: auto !important;
       display: flex !important;
       flex-direction: column !important;
       gap: 10px !important;
-      background-color: #F9FAFB !important;
     }
 
-    .nia-message {
-      max-width: 80% !important;
-      padding: 10px 15px !important;
-      border-radius: 15px !important;
-      word-wrap: break-word !important;
-      font-family: system-ui, -apple-system, sans-serif !important;
-      font-size: 14px !important;
-      line-height: 1.4 !important;
-    }
-
-    .nia-message.user {
+    .user-message {
       align-self: flex-end !important;
       background-color: #4F46E5 !important;
       color: white !important;
-      border-bottom-right-radius: 5px !important;
+      padding: 10px 15px !important;
+      border-radius: 15px 15px 0 15px !important;
+      max-width: 80% !important;
     }
 
-    .nia-message.assistant {
+    .nia-message {
       align-self: flex-start !important;
       background-color: #F3F4F6 !important;
       color: #1F2937 !important;
-      border-bottom-left-radius: 5px !important;
+      padding: 10px 15px !important;
+      border-radius: 15px 15px 15px 0 !important;
+      max-width: 80% !important;
     }
 
-    .nia-message.system {
-      align-self: center !important;
-      background-color: #FF6B6B !important;
-      color: white !important;
-      font-size: 0.9em !important;
-    }
-
-    .nia-chat-input {
+    #nia-chat-input-area {
       padding: 15px !important;
-      border-top: 1px solid #E5E7EB !important;
       display: flex !important;
       gap: 10px !important;
-      background-color: #FFFFFF !important;
+      border-top: 1px solid #E5E7EB !important;
     }
 
-    .nia-chat-input input {
+    #nia-chat-input {
       flex: 1 !important;
       padding: 10px !important;
       border: 1px solid #E5E7EB !important;
       border-radius: 5px !important;
       outline: none !important;
-      background-color: #F9FAFB !important;
-      color: #1F2937 !important;
-      font-family: system-ui, -apple-system, sans-serif !important;
-      font-size: 14px !important;
     }
 
-    .nia-chat-input input:focus {
+    #nia-chat-input:focus {
       border-color: #4F46E5 !important;
     }
 
-    .nia-chat-input button {
-      padding: 10px 15px !important;
+    #nia-send-button {
+      padding: 10px 20px !important;
       background-color: #4F46E5 !important;
       color: white !important;
       border: none !important;
       border-radius: 5px !important;
       cursor: pointer !important;
-      transition: background-color 0.3s ease !important;
-      font-family: system-ui, -apple-system, sans-serif !important;
-      font-size: 14px !important;
-      font-weight: 500 !important;
     }
 
-    .nia-chat-input button:hover {
+    #nia-send-button:hover {
       background-color: #6366F1 !important;
     }
 
-    .nia-chat-input button:disabled {
-      background-color: #9CA3AF !important;
-      cursor: not-allowed !important;
+    #nia-welcome-bubble {
+      position: absolute !important;
+      bottom: 70px !important;
+      right: 0 !important;
+      background-color: white !important;
+      padding: 15px !important;
+      border-radius: 10px !important;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1) !important;
+      max-width: 250px !important;
+      cursor: pointer !important;
     }
 
     .nia-typing-indicator {
       display: flex !important;
       gap: 5px !important;
-      padding: 10px !important;
     }
 
     .nia-typing-indicator span {
@@ -199,7 +197,7 @@
       height: 8px !important;
       background-color: #9CA3AF !important;
       border-radius: 50% !important;
-      animation: typing 1s infinite ease-in-out !important;
+      animation: typing 1s infinite !important;
     }
 
     .nia-typing-indicator span:nth-child(2) {
@@ -211,22 +209,11 @@
     }
 
     @keyframes typing {
-      0%, 100% {
-        transform: translateY(0) !important;
-      }
-      50% {
-        transform: translateY(-5px) !important;
-      }
+      0%, 100% { transform: translateY(0) !important; }
+      50% { transform: translateY(-5px) !important; }
     }
   `;
-
-  // Agregar estilos al documento
-  if (!document.getElementById('nia-chat-styles')) {
-    const styleSheet = document.createElement('style');
-    styleSheet.id = 'nia-chat-styles';
-    styleSheet.textContent = styles;
-    document.head.appendChild(styleSheet);
-  }
+  document.head.appendChild(styleSheet);
 
   // Componente del widget
   class ChatWidget extends HTMLElement {
@@ -313,7 +300,7 @@
 
       this.innerHTML = `
         <div id="nia-widget-container" class="nia-widget-${this.config.widgetPosition}">
-          <button id="nia-floating-icon" style="background-color: ${this.config.primaryColor}"></button>
+          <button id="nia-floating-icon" style="background-color: ${this.config.primaryColor}">N</button>
           <div id="nia-welcome-bubble" style="display: none;">${this.config.welcomeMessage}</div>
           ${this.isOpen ? `
             <div id="nia-chat-box" style="display: flex;">
