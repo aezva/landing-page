@@ -1,0 +1,19 @@
+{
+  "common": {
+    "welcome": "Welcome",
+    "chat": "Chat",
+    "settings": "Settings"
+  },
+  "dashboard": {
+    "welcome": "Welcome to Dashboard",
+    "newChat": "New Chat",
+    "activeChats": "Active Chats",
+    "noActiveChats": "No active chats",
+    "totalUsers": "Total Users",
+    "you": "You",
+    "settings": "Settings",
+    "configure": "Configure",
+    "recentActivity": "Recent Activity",
+    "noRecentActivity": "No recent activity"
+  }
+} 

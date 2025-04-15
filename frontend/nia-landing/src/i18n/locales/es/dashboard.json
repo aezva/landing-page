@@ -1,0 +1,12 @@
+{
+  "welcome": "Bienvenido al Dashboard",
+  "newChat": "Nuevo Chat",
+  "activeChats": "Chats Activos",
+  "noActiveChats": "No hay chats activos",
+  "totalUsers": "Total de Usuarios",
+  "you": "Tú",
+  "settings": "Configuración",
+  "configure": "Configurar",
+  "recentActivity": "Actividad Reciente",
+  "noRecentActivity": "No hay actividad reciente"
+} 
