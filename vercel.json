@@ -3,7 +3,10 @@
   "builds": [
     {
       "src": "frontend/client-platform/package.json",
-      "use": "@vercel/next"
+      "use": "@vercel/next",
+      "config": {
+        "rootDirectory": "frontend/client-platform"
+      }
     }
   ],
   "routes": [
