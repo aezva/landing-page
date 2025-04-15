@@ -1,24 +1,18 @@
 import { NextResponse } from 'next/server';
-import { getNIAResponse } from '@/lib/agents/openai';
 
-export async function POST(req: Request) {
+export async function POST(request: Request) {
   try {
-    const { message, role } = await req.json();
-    
-    if (!message || !role) {
-      return NextResponse.json(
-        { error: 'Message and role are required' },
-        { status: 400 }
-      );
-    }
+    const { message } = await request.json();
 
-    const response = await getNIAResponse(role, message);
-    
-    return NextResponse.json({ response });
+    // Por ahora, devolvemos una respuesta simple
+    // Más adelante integraremos con el backend real
+    return NextResponse.json({
+      response: `Recibí tu mensaje: "${message}". Esta es una respuesta de prueba.`
+    });
   } catch (error) {
-    console.error('Error in chat API:', error);
+    console.error('Error en la API de chat:', error);
     return NextResponse.json(
-      { error: 'Internal server error' },
+      { error: 'Error al procesar el mensaje' },
       { status: 500 }
     );
   }
