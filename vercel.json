@@ -2,17 +2,14 @@
   "version": 2,
   "builds": [
     {
-      "src": "frontend/client-platform/package.json",
-      "use": "@vercel/next",
-      "config": {
-        "rootDirectory": "frontend/client-platform"
-      }
+      "src": "frontend/client-platform/src/app/page.tsx",
+      "use": "@vercel/next"
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "frontend/client-platform/$1"
+      "dest": "frontend/client-platform/src/app/$1"
     }
   ]
 } 
