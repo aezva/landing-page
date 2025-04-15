@@ -1,0 +1,83 @@
+{
+  "common": {
+    "welcome": "Welcome to NIA Platform",
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "success": "Operation completed successfully",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "create": "Create",
+    "dashboard": "Dashboard",
+    "settings": "Settings",
+    "profile": "Profile",
+    "logout": "Logout"
+  },
+  "auth": {
+    "login": "Login",
+    "register": "Register",
+    "email": "Email",
+    "password": "Password",
+    "forgotPassword": "Forgot your password?",
+    "noAccount": "Don't have an account?",
+    "haveAccount": "Already have an account?",
+    "fullName": "Full Name",
+    "companyName": "Company Name",
+    "phoneNumber": "Phone Number"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "overview": "Overview",
+    "nia": "NIA",
+    "integrations": "Integrations",
+    "settings": "Settings",
+    "profile": "Profile",
+    "logout": "Logout",
+    "welcome": "Welcome to Dashboard",
+    "newChat": "New Chat",
+    "activeChats": "Active Chats",
+    "noActiveChats": "No active chats",
+    "totalUsers": "Total Users",
+    "you": "You",
+    "configure": "Configure",
+    "recentActivity": "Recent Activity",
+    "noRecentActivity": "No recent activity"
+  },
+  "nia": {
+    "title": "Your NIA",
+    "create": "Create NIA",
+    "edit": "Edit NIA",
+    "delete": "Delete NIA",
+    "name": "Name",
+    "description": "Description",
+    "personality": "Personality",
+    "knowledge": "Knowledge Base",
+    "training": "Training",
+    "status": "Status"
+  },
+  "integrations": {
+    "title": "Integrations",
+    "add": "Add Integration",
+    "edit": "Edit Integration",
+    "delete": "Delete Integration",
+    "type": "Type",
+    "status": "Status",
+    "connected": "Connected",
+    "disconnected": "Disconnected"
+  },
+  "settings": {
+    "title": "Settings",
+    "language": "Language",
+    "theme": "Theme",
+    "notifications": "Notifications",
+    "timezone": "Timezone",
+    "save": "Save Changes"
+  },
+  "errors": {
+    "required": "This field is required",
+    "invalidEmail": "Invalid email",
+    "invalidPassword": "Invalid password",
+    "serverError": "Server error"
+  }
+} 
