@@ -1,8 +1,7 @@
 [phases.setup]
 nixPkgs = [
     "python311",
-    "poetry",
-    "poetry-core"
+    "poetry"
 ]
 
 [phases.install]
