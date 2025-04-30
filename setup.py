@@ -9,9 +9,16 @@ setup(
         "uvicorn",
         "python-dotenv",
         "supabase",
-        "openai",
-        "pydantic",
+        "python-jose[cryptography]",
+        "passlib[bcrypt]",
         "python-multipart",
+        "httpx",
+        "pydantic",
+        "openai",
+        "langchain",
+        "langchain-openai",
+        "langchain-community",
+        "langchain-core"
     ],
     python_requires=">=3.8",
 ) 
