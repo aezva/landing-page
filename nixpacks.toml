@@ -11,5 +11,11 @@ cmds = [
     "poetry install --no-interaction --no-ansi"
 ]
 
+[phases.build]
+cmds = [
+    "cd /app",
+    "poetry build"
+]
+
 [start]
 cmd = "cd /app && poetry run uvicorn backend.main:app --host 0.0.0.0 --port $PORT" 
