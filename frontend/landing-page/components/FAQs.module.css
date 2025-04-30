@@ -1,0 +1,115 @@
+.section {
+  padding: 0 0 0 0;
+  margin-bottom: 40px;
+  background-color: white;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.leftSection {
+  flex: 1;
+}
+
+.title {
+  font-family: "Alata", sans-serif;
+  font-size: 1.5625rem;
+  font-weight: 400;
+  color: black;
+  margin-bottom: 2rem;
+  padding-top: 100px;
+}
+
+.subtitle {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  color: black;
+  margin-bottom: 40px;
+  line-height: 1.6;
+}
+
+.accordion {
+  width: 100%;
+}
+
+.accordionItem {
+  margin-bottom: 10px;
+  border: 1px solid #eee;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.accordionButton {
+  width: 100%;
+  padding: 15px;
+  background: white;
+  border: none;
+  text-align: left;
+  font-family: "Alata", sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  color: black;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background-color 0.3s ease;
+}
+
+.accordionButton:hover {
+  background-color: #f9f9f9;
+}
+
+.accordionButton.active {
+  background-color: #f9f9f9;
+}
+
+.accordionIcon {
+  font-size: 1.5rem;
+  color: #FF9C9C;
+  font-weight: 200;
+  transition: transform 0.3s ease;
+}
+
+.accordionButton.active .accordionIcon {
+  transform: rotate(45deg);
+}
+
+.accordionContent {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  background-color: white;
+}
+
+.accordionContent.active {
+  max-height: 500px;
+}
+
+.accordionContent p {
+  padding: 20px 20px 20px;
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  color: black;
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 60px 0;
+  }
+
+  .title {
+    font-size: 1.5rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+  }
+} 
