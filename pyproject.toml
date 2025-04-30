@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "nnia-backend"
+version = "0.1.0"
+description = "Backend for NNIA project"
+authors = ["Your Name <your.email@example.com>"]
+packages = [{include = "backend"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = "^0.104.1"
+uvicorn = "^0.24.0"
+python-dotenv = "^1.0.0"
+supabase = "^2.3.1"
+python-jose = {extras = ["cryptography"], version = "^3.3.0"}
+passlib = {extras = ["bcrypt"], version = "^1.7.4"}
+python-multipart = "^0.0.6"
+httpx = "^0.25.2"
+pydantic = "^2.5.2"
+openai = "^1.3.5"
+langchain = "^0.0.350"
+langchain-openai = "^0.0.2"
+langchain-community = "^0.0.10"
+langchain-core = "^0.1.4"
+
+[build-system]
+requires = ["poetry-core>=1.5.0"]
+build-backend = "poetry.core.masonry.api" 
