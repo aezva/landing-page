@@ -33,10 +33,10 @@ const Register: React.FC = () => {
     if (!formData.password) {
       newErrors.password = t.errors.required;
     } else if (formData.password.length < 6) {
-      newErrors.password = t.errors.passwordTooShort;
+      newErrors.password = t.errors.minPassword;
     }
     if (formData.password !== formData.confirmPassword) {
-      newErrors.confirmPassword = t.errors.passwordsDontMatch;
+      newErrors.confirmPassword = t.errors.passwordMismatch;
     }
 
     setErrors(newErrors);
