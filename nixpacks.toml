@@ -18,4 +18,7 @@ cmds = [
 ]
 
 [start]
-cmd = "cd /app && poetry run uvicorn backend.main:app --host 0.0.0.0 --port $PORT" 
+cmd = "cd /app && poetry run uvicorn backend.main:app --host 0.0.0.0 --port $PORT"
+
+[build]
+dockerfile = "backend/Dockerfile" 
