@@ -15,6 +15,13 @@ const nextConfig = {
   experimental: {
     optimizeCss: true,
   },
+  // Asegurar que PostCSS y Tailwind se procesan correctamente
+  postcss: {
+    plugins: {
+      tailwindcss: {},
+      autoprefixer: {},
+    },
+  },
 }
 
 module.exports = nextConfig 
