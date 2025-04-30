@@ -2,20 +2,15 @@
 nixPkgs = [
     "python311",
     "python311Packages.pip",
-    "python311Packages.fastapi",
-    "python311Packages.uvicorn",
-    "python311Packages.python-dotenv",
-    "python311Packages.python-jose",
-    "python311Packages.passlib",
-    "python311Packages.python-multipart",
-    "python311Packages.httpx",
-    "python311Packages.pydantic"
+    "python311Packages.virtualenv"
 ]
 
 [phases.install]
 cmds = [
-    "pip install --no-cache-dir supabase openai langchain langchain-openai langchain-community langchain-core"
+    "python -m venv /app/venv",
+    ". /app/venv/bin/activate",
+    "pip install -r backend/requirements.txt"
 ]
 
 [start]
-cmd = "cd backend && uvicorn main:app --host 0.0.0.0 --port $PORT" 
+cmd = "cd backend && . /app/venv/bin/activate && uvicorn main:app --host 0.0.0.0 --port $PORT" 
