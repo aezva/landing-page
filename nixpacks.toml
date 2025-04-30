@@ -6,7 +6,7 @@ nixPkgs = [
 
 [phases.install]
 cmds = [
-    "cp -r backend/* /app/",
+    "cp -r /app/backend/* /app/",
     "cd /app",
     "poetry config virtualenvs.create false",
     "poetry install --no-interaction --no-ansi"
