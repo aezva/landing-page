@@ -1,6 +1,6 @@
 [build]
 builder = "nixpacks"
-buildCommand = "cd backend && poetry install --no-interaction --no-ansi --no-root"
+buildCommand = "poetry install --no-interaction --no-ansi --no-root"
 
 [deploy]
 startCommand = "cd /app && PYTHONPATH=/app poetry run uvicorn backend.main:app --host 0.0.0.0 --port $PORT" 
