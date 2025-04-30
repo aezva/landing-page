@@ -6,11 +6,10 @@ nixPkgs = [
 
 [phases.install]
 cmds = [
-    "cp -r /app/backend/* /app/",
-    "cd /app",
+    "cd /app/backend",
     "poetry config virtualenvs.create false",
     "poetry install --no-interaction --no-ansi"
 ]
 
 [start]
-cmd = "cd /app && poetry run uvicorn main:app --host 0.0.0.0 --port $PORT" 
+cmd = "cd /app/backend && poetry run uvicorn main:app --host 0.0.0.0 --port $PORT" 
