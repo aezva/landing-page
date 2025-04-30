@@ -1,12 +1,14 @@
 [phases.setup]
 nixPkgs = [
     "python311",
-    "python311Packages.poetry"
+    "poetry",
+    "poetry-core"
 ]
 
 [phases.install]
 cmds = [
     "cd backend",
+    "poetry config virtualenvs.create false",
     "poetry install --no-interaction --no-ansi"
 ]
 
