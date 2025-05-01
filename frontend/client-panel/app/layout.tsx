@@ -11,6 +11,8 @@ import { AuthProvider } from '../context/AuthContext';
 import { useAuth } from '../context/AuthContext';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect } from 'react';
+import EmailVerificationBanner from '../components/EmailVerificationBanner';
+import LoadingSpinner from '../components/LoadingSpinner';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -36,11 +38,7 @@ function AuthWrapper({ children }: { children: React.ReactNode }) {
   }, [user, loading, pathname, router]);
 
   if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
-      </div>
-    );
+    return <LoadingSpinner />;
   }
 
   return <>{children}</>;
@@ -60,6 +58,7 @@ export default function RootLayout({
         />
       </head>
       <body className={inter.className}>
+        <EmailVerificationBanner />
         <AuthProvider>
           <AuthWrapper>
             <UserProvider>

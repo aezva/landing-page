@@ -23,7 +23,7 @@ export default function OnboardingPage() {
 
         // Verificar si el usuario ya completó el onboarding
         const { data: profile } = await supabase
-          .from('profiles')
+          .from('users')
           .select('onboarding_completed')
           .eq('id', user.id)
           .single();
@@ -50,7 +50,7 @@ export default function OnboardingPage() {
 
       // Marcar el onboarding como completado
       await supabase
-        .from('profiles')
+        .from('users')
         .update({ onboarding_completed: true })
         .eq('id', user.id);
 

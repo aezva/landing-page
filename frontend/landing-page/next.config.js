@@ -18,6 +18,11 @@ const nextConfig = {
   images: {
     domains: ['localhost'],
   },
+  env: {
+    NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL,
+    NEXT_PUBLIC_SUPABASE_ANON_KEY: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+    NEXT_PUBLIC_CLIENT_PANEL_URL: process.env.NEXT_PUBLIC_CLIENT_PANEL_URL || 'http://localhost:4000',
+  },
 }
 
 module.exports = nextConfig 

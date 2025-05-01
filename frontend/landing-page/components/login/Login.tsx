@@ -51,7 +51,7 @@ const Login: React.FC = () => {
 
         // Obtener el clientID del usuario
         const { data: profile } = await supabase
-          .from('profiles')
+          .from('users')
           .select('client_id')
           .eq('id', data.user.id)
           .single();

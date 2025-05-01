@@ -7,12 +7,14 @@ import styles from './Register.module.css';
 import { useLanguage } from '../../context/LanguageContext';
 import { translations } from '../../translations';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import LoadingSpinner from '../../components/LoadingSpinner';
 
 const Register: React.FC = () => {
   const { language } = useLanguage();
   const router = useRouter();
   const t = translations[language].register;
   const supabase = createClientComponentClient();
+  const [isLoading, setIsLoading] = useState(false);
 
   const [formData, setFormData] = useState({
     email: '',
@@ -47,33 +49,60 @@ const Register: React.FC = () => {
     e.preventDefault();
     
     if (validateForm()) {
+      setIsLoading(true);
       try {
+        // 1. Registrar el usuario
         const { data, error } = await supabase.auth.signUp({
           email: formData.email,
           password: formData.password,
+          options: {
+            data: {
+              email_verified: false
+            }
+          }
         });
 
         if (error) throw error;
 
         if (data.user) {
-          // Obtener el clientID del usuario
-          const { data: profile } = await supabase
-            .from('profiles')
-            .select('client_id')
-            .eq('id', data.user.id)
-            .single();
+          // 2. Generar un client_id único
+          const client_id = `client_${data.user.id.slice(0, 8)}_${Date.now()}`;
+          
+          // 3. Crear el perfil del usuario con el client_id
+          const { error: profileError } = await supabase
+            .from('users')
+            .insert([
+              {
+                id: data.user.id,
+                email: data.user.email,
+                client_id: client_id,
+                created_at: new Date().toISOString(),
+                onboarding_completed: false,
+                email_verified: false
+              }
+            ]);
 
-          if (profile?.client_id) {
-            // Redirigir al panel específico del cliente
-            window.location.href = `/client-panel/${profile.client_id}`;
-          } else {
-            throw new Error('No se encontró el ID del cliente');
-          }
+          if (profileError) throw profileError;
+
+          // 4. Iniciar sesión automáticamente
+          const { error: signInError } = await supabase.auth.signInWithPassword({
+            email: formData.email,
+            password: formData.password,
+          });
+
+          if (signInError) throw signInError;
+
+          // 5. Redirigir al panel del cliente
+          const clientPanelUrl = process.env.NEXT_PUBLIC_CLIENT_PANEL_URL || 'http://localhost:4000';
+          window.location.href = `${clientPanelUrl}/client-panel/${client_id}`;
         }
       } catch (err) {
+        console.error('Error en el registro:', err);
         setErrors({
           submit: err instanceof Error ? err.message : 'Error al registrar'
         });
+      } finally {
+        setIsLoading(false);
       }
     }
   };
@@ -88,6 +117,7 @@ const Register: React.FC = () => {
 
   return (
     <div className={styles.container}>
+      {isLoading && <LoadingSpinner />}
       <div className={styles.registerBox}>
         <div className={styles.logoContainer}>
           <div className={styles.logo}>NNIA</div>
