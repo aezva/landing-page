@@ -21,7 +21,8 @@ class Settings(BaseSettings):
         "http://127.0.0.1:3007",
         "https://iamnnia.com",
         "https://www.iamnnia.com",
-        "https://client.iamnnia.com"
+        "https://client.iamnnia.com",
+        "https://widget.iamnnia.com"
     ]
     
     # Database Configuration
