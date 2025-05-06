@@ -20,9 +20,8 @@
     ],
     "paths": {
       "@/*": ["./*"],
-      "@context/*": ["./context/*"],
-      "@components/*": ["./components/*"],
-      "@services/*": ["./services/*"]
+      "@shared/*": ["../shared/*"],
+      "@landing-page/*": ["../landing-page/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

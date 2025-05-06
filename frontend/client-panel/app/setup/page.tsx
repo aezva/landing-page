@@ -1,7 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { useLanguage } from '@context/LanguageContext';
+import { useLanguage } from '@shared/i18n/LanguageContext';
+import { useTranslation } from '@shared/i18n/useTranslation';
 import { 
   SparklesIcon,
   Cog6ToothIcon,

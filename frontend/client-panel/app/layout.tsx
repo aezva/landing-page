@@ -2,7 +2,7 @@
 
 import { Inter } from 'next/font/google';
 import './globals.css';
-import { LanguageProvider } from '../context/LanguageContext';
+import { LanguageProvider } from '@shared/i18n/LanguageContext';
 import { UserProvider } from '../context/UserContext';
 import Sidebar from '../components/Sidebar';
 import Header from '../components/Header';

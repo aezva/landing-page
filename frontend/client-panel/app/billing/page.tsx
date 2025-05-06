@@ -1,6 +1,6 @@
 'use client';
 
-import { useLanguage } from '../../context/LanguageContext';
+import { useLanguage } from '@shared/i18n/LanguageContext';
 
 export default function BillingPage() {
   const { language } = useLanguage();
