@@ -1,6 +1,6 @@
 'use client';
 
-import { useLanguage } from '../../../landing-page/context/LanguageContext';
+import { useLanguage } from '../../context/LanguageContext';
 
 export default function BillingPage() {
   const { language } = useLanguage();

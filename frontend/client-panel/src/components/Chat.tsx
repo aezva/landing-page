@@ -1,7 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import ChatService from '../services/chatService';
-import { Box, TextField, Button, Typography, Paper, List, ListItem, ListItemText, CircularProgress } from '@mui/material';
-import SendIcon from '@mui/icons-material/Send';
 
 interface Message {
   content: string;
@@ -69,57 +67,56 @@ export const Chat: React.FC = () => {
     };
 
     return (
-        <Box sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-            <Paper elevation={3} sx={{ flexGrow: 1, overflow: 'auto', mb: 2, p: 2 }}>
-                <List>
-                    {messages.map((message, index) => (
-                        <ListItem
-                            key={index}
-                            sx={{
-                                justifyContent: message.senderId === 'user' ? 'flex-end' : 'flex-start',
-                                mb: 1
-                            }}
+        <div className="flex flex-col h-full">
+            <div className="flex-1 overflow-y-auto p-4 space-y-4">
+                {messages.map((message, index) => (
+                    <div
+                        key={index}
+                        className={`flex ${
+                            message.senderId === 'user' ? 'justify-end' : 'justify-start'
+                        }`}
+                    >
+                        <div
+                            className={`max-w-[70%] rounded-lg p-3 ${
+                                message.senderId === 'user'
+                                    ? 'bg-blue-500 text-white'
+                                    : 'bg-gray-200 text-gray-800'
+                            }`}
                         >
-                            <Paper
-                                elevation={1}
-                                sx={{
-                                    p: 2,
-                                    maxWidth: '70%',
-                                    backgroundColor: message.senderId === 'user' ? '#e3f2fd' : '#f5f5f5'
-                                }}
-                            >
-                                <ListItemText
-                                    primary={message.content}
-                                    secondary={message.timestamp.toLocaleTimeString()}
-                                />
-                            </Paper>
-                        </ListItem>
-                    ))}
-                    <div ref={messagesEndRef} />
-                </List>
-            </Paper>
-            <Box sx={{ display: 'flex', gap: 2 }}>
-                <TextField
-                    fullWidth
-                    variant="outlined"
-                    placeholder="Escribe tu mensaje..."
-                    value={newMessage}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNewMessage(e.target.value)}
-                    onKeyPress={handleKeyPress}
-                    disabled={isLoading}
-                    multiline
-                    maxRows={4}
-                />
-                <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={handleSendMessage}
-                    disabled={isLoading || !newMessage.trim()}
-                    sx={{ minWidth: '100px' }}
-                >
-                    {isLoading ? <CircularProgress size={24} /> : <SendIcon />}
-                </Button>
-            </Box>
-        </Box>
+                            <p>{message.content}</p>
+                            <p className="text-xs mt-1 opacity-75">
+                                {message.timestamp.toLocaleTimeString()}
+                            </p>
+                        </div>
+                    </div>
+                ))}
+                <div ref={messagesEndRef} />
+            </div>
+
+            <div className="p-4 border-t">
+                <div className="flex space-x-2">
+                    <input
+                        type="text"
+                        value={newMessage}
+                        onChange={(e) => setNewMessage(e.target.value)}
+                        onKeyPress={handleKeyPress}
+                        placeholder="Escribe tu mensaje..."
+                        className="flex-1 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        disabled={isLoading}
+                    />
+                    <button
+                        onClick={handleSendMessage}
+                        disabled={isLoading || !newMessage.trim()}
+                        className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50"
+                    >
+                        {isLoading ? (
+                            <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                        ) : (
+                            'Enviar'
+                        )}
+                    </button>
+                </div>
+            </div>
+        </div>
     );
 }; 

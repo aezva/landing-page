@@ -21,7 +21,6 @@
     "axios": "^1.9.0",
     "lucide-react": "^0.330.0",
     "next": "14.1.0",
-    "nnia-chat-widget": "file:../../nnia_chat_widget",
     "react": "^18",
     "react-dom": "^18"
   },
