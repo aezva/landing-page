@@ -3,8 +3,8 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { useAuth } from '../../context/AuthContext';
-import { useLanguage } from '@shared/i18n/LanguageContext';
-import { translations } from '@shared/i18n/translations';
+import { useLanguage } from '../../context/LanguageContext';
+import { translations } from '../../lib/i18n/translations';
 
 export default function LoginPage() {
   const { language } = useLanguage();

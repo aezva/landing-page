@@ -1,8 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react';
 import ChatService from '../services/chatService';
-import { Message } from '../services/chatService';
 import { Box, TextField, Button, Typography, Paper, List, ListItem, ListItemText, CircularProgress } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
+
+interface Message {
+  content: string;
+  timestamp: Date;
+  senderId: 'user' | 'assistant';
+  receiverId: 'user' | 'assistant';
+  threadId?: string;
+  read: boolean;
+}
 
 const chatService = new ChatService();
 
@@ -27,22 +35,22 @@ export const Chat: React.FC = () => {
         setIsLoading(true);
         const messageToSend: Message = {
             content: newMessage,
-            threadId: threadId || undefined,
             timestamp: new Date(),
             senderId: 'user',
             receiverId: 'assistant',
+            threadId: threadId || undefined,
             read: false
         };
 
         try {
-            const response = await chatService.sendMessage(messageToSend);
-            setThreadId(response.threadId);
+            const response = await chatService.sendMessage(messageToSend.content);
+            setThreadId(response.metadata.thread_id);
             setMessages(prev => [...prev, messageToSend, {
-                content: response.message,
-                threadId: response.threadId,
-                timestamp: new Date(),
+                content: response.content,
+                timestamp: new Date(response.timestamp),
                 senderId: 'assistant',
                 receiverId: 'user',
+                threadId: response.metadata.thread_id,
                 read: true
             }]);
             setNewMessage('');
@@ -82,7 +90,7 @@ export const Chat: React.FC = () => {
                             >
                                 <ListItemText
                                     primary={message.content}
-                                    secondary={new Date(message.timestamp).toLocaleTimeString()}
+                                    secondary={message.timestamp.toLocaleTimeString()}
                                 />
                             </Paper>
                         </ListItem>

@@ -1,10 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { chatService } from '../services/api';
-
-interface Message {
-  role: 'user' | 'assistant';
-  content: string;
-}
+import { chatService, Message } from '../services/api';
 
 export default function Chat() {
   const [messages, setMessages] = useState<Message[]>([]);

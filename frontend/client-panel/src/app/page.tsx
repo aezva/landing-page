@@ -1,12 +1,6 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import dynamic from 'next/dynamic';
-
-// Importar el widget de NIA dinámicamente para evitar problemas de SSR
-const NiaChatWidget = dynamic(() => import('nia-chat-widget'), {
-  ssr: false,
-});
 
 export default function Home() {
   const [isClient, setIsClient] = useState(false);
@@ -22,13 +16,7 @@ export default function Home() {
         
         {isClient && (
           <div className="w-full max-w-2xl mx-auto">
-            <NiaChatWidget
-              apiUrl="http://localhost:8000/api/v1"
-              context={{
-                platform: 'client-panel',
-                clientID: '123', // Esto debería venir de la autenticación
-              }}
-            />
+            <p>Bienvenido al panel de cliente</p>
           </div>
         )}
       </div>

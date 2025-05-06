@@ -2,9 +2,8 @@
 
 import { Inter } from 'next/font/google';
 import './globals.css';
-import { LanguageProvider } from '@shared/i18n/LanguageContext';
+import { LanguageProvider } from '../context/LanguageContext';
 import { UserProvider } from '../context/UserContext';
-import dynamic from 'next/dynamic';
 import Sidebar from '../components/Sidebar';
 import Header from '../components/Header';
 import { AuthProvider } from '../context/AuthContext';
@@ -15,12 +14,6 @@ import EmailVerificationBanner from '../components/EmailVerificationBanner';
 import LoadingSpinner from '../components/LoadingSpinner';
 
 const inter = Inter({ subsets: ['latin'] });
-
-// Importar el widget de manera dinámica para evitar problemas de SSR
-const NniaWidget = dynamic(() => import('../../../nnia_chat_widget/src/index').then(mod => mod.default), {
-  ssr: false,
-  loading: () => null
-});
 
 function AuthWrapper({ children }: { children: React.ReactNode }) {
   const { user, loading } = useAuth();
@@ -75,10 +68,6 @@ export default function RootLayout({
                       </main>
                     </div>
                   </div>
-                  <NniaWidget 
-                    apiUrl={process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'} 
-                    context={{ platform: "client-panel" }} 
-                  />
                 </div>
               </LanguageProvider>
             </UserProvider>

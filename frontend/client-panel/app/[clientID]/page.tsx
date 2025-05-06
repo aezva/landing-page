@@ -26,7 +26,12 @@ export default function ClientPanel() {
 
   return (
     <Layout>
-      {/* El contenido existente del panel del cliente */}
+      <div className="space-y-6">
+        <h1 className="text-2xl font-semibold text-gray-900">Panel del Cliente {clientID}</h1>
+        <div className="bg-white shadow rounded-lg p-6">
+          <p className="text-gray-600">Contenido del panel del cliente...</p>
+        </div>
+      </div>
     </Layout>
   );
 } 

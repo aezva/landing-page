@@ -3,8 +3,8 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { useAuth } from '../../context/AuthContext';
-import { useLanguage } from '@shared/i18n/LanguageContext';
-import { translations } from '@shared/i18n/translations';
+import { useLanguage } from '../../context/LanguageContext';
+import { translations } from '../../lib/i18n/translations';
 
 export default function RegisterPage() {
   const { language } = useLanguage();
@@ -29,11 +29,9 @@ export default function RegisterPage() {
     }
     if (!formData.password) {
       newErrors.password = t.errors.required;
-    } else if (formData.password.length < 6) {
-      newErrors.password = t.errors.passwordTooShort;
     }
     if (formData.password !== formData.confirmPassword) {
-      newErrors.confirmPassword = t.errors.passwordsDontMatch;
+      newErrors.confirmPassword = t.errors.passwordMismatch;
     }
 
     setErrors(newErrors);
@@ -141,7 +139,7 @@ export default function RegisterPage() {
 
           <div className="text-sm text-center">
             <Link href="/login" className="font-medium text-nia-pink hover:text-nia-pink/90">
-              {t.form.alreadyHaveAccount} {t.form.signIn}
+              {t.form.haveAccount} {t.form.signIn}
             </Link>
           </div>
         </form>
