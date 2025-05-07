@@ -51,12 +51,12 @@ export default function RootLayout({
         />
       </head>
       <body className={inter.className}>
-        <EmailVerificationBanner />
         <AuthProvider>
           <AuthWrapper>
             <UserProvider>
               <LanguageProvider>
                 <div className="h-screen bg-gray-50">
+                  <EmailVerificationBanner />
                   <Header />
                   <div className="flex h-[calc(100vh-3.5rem)]">
                     <Sidebar />
